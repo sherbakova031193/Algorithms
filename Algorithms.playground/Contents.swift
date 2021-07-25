@@ -1,9 +1,10 @@
 import UIKit
 
-//Условие:
-//На вход подается масив типа и объект типа Int. Верните индексы двух чисел из массива которые в сумме дают значение объекта.
-//
-//Решение может быть только одно и элементы массива не повторяются, если пара не найдена, то верните пустой массив.
+// MARK: - Task 1
+/// Условие:
+/// На вход подается масив типа и объект типа Int. Верните индексы двух чисел из массива которые в сумме дают значение объекта.
+///
+/// Решение может быть только одно и элементы массива не повторяются, если пара не найдена, то верните пустой массив.
 
 let array = [ 3, 7, 6, 8, 16, 5 ]
 let target = 19
@@ -21,6 +22,58 @@ func getIndicesOfSums(array: [Int], target: Int) -> [Int] {
 }
 
 getIndicesOfSums(array: array, target: target)
-// Сложность O(n) где n - это количетсво элементов в массиве
+/// - Complexity: O(*n*), where *n* is the length of the sequence.
+
+
+//  MARK: - Task 2
+/// Условие:
+/// Удалите дубликаты в отсортированном массиве, вернуть количество элементов в массиве
+
+var sortArray = [ 0, 0, 1, 1, 3, 4, 4, 4, 5, 5, 8 ]
+ ///inout - ссылка на массив, изменения будет происхоит именно в этом массиве, а не в копии
+func removeDuplicates(array: inout [Int]) -> Int {
+    var last: Int?
+    var index: Int = 0
+    while index < array.count {
+        if array[index] == last {
+            array.remove(at: index)
+        } else {
+            last = array[index]
+            index += 1
+        }
+    }
+    return array.count
+}
+removeDuplicates(array: &sortArray)
+print(sortArray)
+/// - Complexity: O(*n*), where *n* is the length of the sequence.
+
+//  MARK: - Task 3
+/// Условие:
+/// Удалите дубликаты в не отсортированном массиве, вернуть количество элементов в массиве
+
+var notSortArray = [ 1, 0, 9, 1, 0, 9, 3, 4, 5, 9, 3 ]
+
+func removeDupl(array: inout [Int]) -> Int {
+    var hashTable: [Int: Int] = [:]
+    var index: Int = 0
+    while index < array.count {
+        if hashTable[array[index]] != nil {
+            array.remove(at: index)
+        } else {
+            hashTable[array[index]] = index
+            index += 1
+        }
+    }
+    return array.count
+}
+removeDupl(array: &notSortArray)
+print(notSortArray)
+/// - Complexity: O(*n*), where *n* is the length of the sequence.
+
+//  MARK: - Task 4
+/// Условие:
+/// Найти кратчайший несортированный, непрерывный подмассив в массиве
+/// На вход подается массив, в этом массиве нужно найти такой подмассив, который если отсортируете в порядке возврастания, отсортирует весь массив в порядке возрастания
 
 
