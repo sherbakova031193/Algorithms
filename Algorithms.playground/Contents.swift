@@ -6,20 +6,18 @@ import UIKit
 //Решение может быть только одно и элементы массива не повторяются, если пара не найдена, то верните пустой массив.
 
 let array = [ 3, 7, 6, 8, 16, 5 ]
-let target = 15
+let target = 19
 
 func getIndicesOfSums(array: [Int], target: Int) -> [Int] {
-    var numberIndices: [Int] = []
     var hashTable: [Int: Int] = [:]
     
     for (index, element) in array.enumerated() {
         if let differenceIndex = hashTable[target - element] {
-            numberIndices = [index, differenceIndex]
-            break
+            return [index, differenceIndex]
         }
         hashTable[element] = index
     }
-    return numberIndices
+    return []
 }
 
 getIndicesOfSums(array: array, target: target)
