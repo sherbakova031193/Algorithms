@@ -52,7 +52,7 @@ print(sortArray)
 /// Условие:
 /// Удалите дубликаты в не отсортированном массиве, вернуть количество элементов в массиве
 
-var notSortArray = [ 1, 0, 9, 1, 0, 9, 3, 4, 5, 9, 3 ]
+var unsortArray = [ 1, 0, 9, 1, 0, 9, 3, 4, 5, 9, 3 ]
 
 func removeDupl(array: inout [Int]) -> Int {
     var hashTable: [Int: Int] = [:]
@@ -67,8 +67,8 @@ func removeDupl(array: inout [Int]) -> Int {
     }
     return array.count
 }
-removeDupl(array: &notSortArray)
-print(notSortArray)
+removeDupl(array: &unsortArray)
+print(unsortArray)
 /// - Complexity: O(*n*), where *n* is the length of the sequence.
 
 //  MARK: - Task 4
@@ -76,4 +76,31 @@ print(notSortArray)
 /// Найти кратчайший несортированный, непрерывный подмассив в массиве
 /// На вход подается массив, в этом массиве нужно найти такой подмассив, который если отсортируете в порядке возврастания, отсортирует весь массив в порядке возрастания
 
+/// [1, 4, 3, 2, 6] ---> [4, 3, 2]
+/// [6, 4, 10, 10, 4, 15] -----> [6, 4, 10, 10, 4]
+/// [ 1, 1 ] ------> []
 
+func findUnsortedSubarray(array: [Int]) -> Int {
+    let lastIndex = array.count - 1
+    var maxNum = array[0]
+    var minNum = array[lastIndex]
+    
+    var endIndex = 0
+    var startIndex = 1
+    
+    for (index, element) in array.enumerated() {
+        maxNum = max(maxNum, element)
+        if element < maxNum {
+            endIndex = index
+        }
+        minNum = min(minNum, array[lastIndex - index])
+        if array[lastIndex - index] > minNum {
+            startIndex = lastIndex - index
+        }
+    }
+    return endIndex - startIndex + 1
+}
+
+findUnsortedSubarray(array: [6, 4, 10, 10, 4, 15])
+findUnsortedSubarray(array: [1, 1])
+/// - Complexity: O(*n*), where *n* is the length of the sequence.
