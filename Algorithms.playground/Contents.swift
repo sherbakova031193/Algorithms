@@ -13,16 +13,16 @@ func getIndicesOfSums(array: [Int], target: Int) -> [Int] {
     var hashTable: [Int: Int] = [:]
     
     for (index, element) in array.enumerated() {
-        hashTable[element] = index
-        let difference = target - element
-        if let differenceIndex = hashTable[difference] {
+        if let differenceIndex = hashTable[target - element] {
             numberIndices = [index, differenceIndex]
             break
         }
+        hashTable[element] = index
     }
     return numberIndices
 }
 
 getIndicesOfSums(array: array, target: target)
 // Сложность O(n) где n - это количетсво элементов в массиве
+
 
